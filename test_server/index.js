@@ -49,6 +49,10 @@ app.use((req, res, next) => {
   res.status(404).send({ message: 'Not found' });
 });
 
+app.get('/', (req, res) => {
+  res.send('Hello World');
+});
+
 server.listen(port, () => {
   console.log(`Server started on http://localhost:${port}`);
 });
