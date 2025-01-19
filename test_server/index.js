@@ -52,9 +52,10 @@ app.use((req, res, next) => {
 app.get('/', (req, res) => {
   res.send('Hello World');
 });
-
-server.listen(port, () => {
-  console.log(`Server started on http://localhost:${port}`);
-});
+if (!server.listening) {
+  server.listen(port, () => {
+    console.log(`Server started on http://localhost:${port}`);
+  });
+}
 
 module.exports = server;
