@@ -1,5 +1,5 @@
 const express = require('express');
-const https = require('https');
+const http = require('http');
 const fs = require('fs');
 const ImageKit = require('imagekit');
 const cors = require('cors');
@@ -14,12 +14,11 @@ const announcementsRouter = require('./routes/announcements');
 const commentsRouter = require('./routes/comments');
 
 require('dotenv').config();
-const key = fs.readFileSync('./key.pem');
-const cert = fs.readFileSync('./cert.pem');
 const port = 3000;
 
-
 const app = express();
+const server = http.createServer(app);
+
 app.use(express.json());
 app.use(cors({ origin: '*' }));
 app.use((req, res, next) => {
@@ -28,9 +27,8 @@ app.use((req, res, next) => {
   next();
 });
 
-const httpsServer = https.createServer({ key, cert }, app);
 
-const io = new IO(httpsServer, {
+const io = new IO(server, {
   cors: {
     // Don't forget to set this properly
     origin: '*',
@@ -51,6 +49,8 @@ app.use((req, res, next) => {
   res.status(404).send({ message: 'Not found' });
 });
 
-httpsServer.listen(port, () => {
-  console.log(`Server started on https://localhost:${port}`);
+server.listen(port, () => {
+  console.log(`Server started on http://localhost:${port}`);
 });
+
+module.exports = server;
