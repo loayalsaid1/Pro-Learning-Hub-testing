@@ -7,7 +7,7 @@ const pool = mysql.createPool({
 	port: process.env.DB_PORT,
 	password: process.env.DB_PASSWORD,
 	database: process.env.DB_NAME,
-	namedPlaceholders: true,,
+	namedPlaceholders: true,
 	connectTimeout: 10000, // increase timeout to 10 seconds
   retryDelay: 500,
 	timezone: 'Z' // that's just zulu.. same os UTC.
