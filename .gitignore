@@ -6,3 +6,6 @@ node_modules/
 /schoolhub/passkeys.py
 
 *.sqlite3
+!README.md
+!front-end
+!test_server
